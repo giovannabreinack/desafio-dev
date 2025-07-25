@@ -1,4 +1,3 @@
-// src/decorators/is-cpf.decorator.ts
 import { registerDecorator, ValidationArguments, ValidationOptions } from 'class-validator';
 import { cpf } from 'cpf-cnpj-validator';
 

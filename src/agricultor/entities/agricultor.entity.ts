@@ -1,9 +1,8 @@
-import { IsBoolean, IsDate, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { IsCPF } from 'src/agricultor/decorators/is-cpf.decorator';
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { IsBoolean, IsDate, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { IsCPF } from "../decorators/is-cpf.decorator";
 
-@Entity()
-@Unique(['cpf'])
+@Entity({ name: "tb_agricultores" })
 export class Agricultor {
 
     @PrimaryGeneratedColumn()

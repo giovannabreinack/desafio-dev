@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Agricultor } from './agricultor/entities/agricultor.entity';
 import { AgricultorModule } from './agricultor/agricultor.module';
+import { Agricultor } from './agricultor/entities/agricultor.entity';
 
 @Module({
   imports: [
@@ -14,7 +14,7 @@ import { AgricultorModule } from './agricultor/agricultor.module';
       database: 'db_agricultor',
       entities: [Agricultor],
       synchronize: true,
-      logging: true,
+      logging: false,
     }),
     AgricultorModule
   ],
