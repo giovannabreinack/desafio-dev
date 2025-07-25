@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { DeleteResult, ILike, Repository } from "typeorm";
+import { CreateAgricultorDto } from "../dto/create-agricultor.dto";
+import { UpdateAgricultorDto } from "../dto/update-agricultor.dto";
 import { Agricultor } from "../entities/agricultor.entity";
 
 @Injectable()
@@ -49,14 +52,27 @@ export class AgricultorService {
         })
     }
 
-    async create(agricultor: Agricultor): Promise<Agricultor> {
-        return await this.agricultorRepository.save(agricultor);
+    async create(dto: CreateAgricultorDto): Promise<Agricultor> {
+        const exists = await this.agricultorRepository.findOne({ where: { cpf: dto.cpf } });
+
+        if (exists) {
+            throw new HttpException('CPF já cadastrado!', HttpStatus.CONFLICT);
+        }
+
+        const novoAgricultor = this.agricultorRepository.create(dto);
+        return await this.agricultorRepository.save(novoAgricultor);
     }
 
-    async update(agricultor: Agricultor): Promise<Agricultor> {
-        await this.findById(agricultor.id)
-        return await this.agricultorRepository.save(agricultor);
+    async update(id: number, dto: UpdateAgricultorDto): Promise<Agricultor> {
+        const agricultor = await this.findById(id);
+        if ((dto as any).cpf) {
+            throw new HttpException('CPF não pode ser alterado', HttpStatus.BAD_REQUEST);
+        }
+
+        Object.assign(agricultor, dto);
+        return this.agricultorRepository.save(agricultor);
     }
+
 
     async delete(id: number): Promise<DeleteResult> {
         await this.findById(id)
