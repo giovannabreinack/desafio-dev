@@ -16,7 +16,7 @@ import { UpdateAgricultorDto } from 'src/agricultor/dto/update-agricultor.dto';
 import { Agricultor } from 'src/agricultor/entities/agricultor.entity';
 import { AgricultorService } from 'src/agricultor/services/agricultor.service';
 
-@Controller('agricultores')
+@Controller('/agricultores')
 export class AgricultorController {
     constructor(private readonly agricultorService: AgricultorService) { }
 
