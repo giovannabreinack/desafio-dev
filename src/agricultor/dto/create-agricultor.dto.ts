@@ -1,5 +1,6 @@
+import { Type } from 'class-transformer';
 import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { IsCPF } from 'src/agricultor/decorators/is-cpf.decorator';
+import { IsCPF } from '../decorators/is-cpf.decorator';
 
 export class CreateAgricultorDto {
     @IsNotEmpty({ message: 'Nome completo é obrigatório' })
@@ -11,6 +12,7 @@ export class CreateAgricultorDto {
     cpf: string;
 
     @IsOptional()
+    @Type(() => Date)
     birthDate?: Date;
 
     @IsOptional()

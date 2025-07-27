@@ -11,10 +11,10 @@ import {
     Patch,
     Post,
 } from '@nestjs/common';
-import { CreateAgricultorDto } from 'src/agricultor/dto/create-agricultor.dto';
-import { UpdateAgricultorDto } from 'src/agricultor/dto/update-agricultor.dto';
-import { Agricultor } from 'src/agricultor/entities/agricultor.entity';
-import { AgricultorService } from 'src/agricultor/services/agricultor.service';
+import { CreateAgricultorDto } from '../dto/create-agricultor.dto';
+import { UpdateAgricultorDto } from '../dto/update-agricultor.dto';
+import { Agricultor } from '../entities/agricultor.entity';
+import { AgricultorService } from '../services/agricultor.service';
 
 @Controller('/agricultores')
 export class AgricultorController {
