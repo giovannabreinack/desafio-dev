@@ -74,3 +74,24 @@ src/
 - Regras de negócio aplicadas no service
 
 
+# 🤖 Testes Automatizados
+
+Este projeto conta com testes automatizados usando Jest e Supertest para garantir a
+integridade das funcionalidades implementadas.
+
+# 📈 Cobertura dos Testes
+
+- ✅ Cadastro de um novo agricultor com CPF válido
+- ❌ Cadastro duplicado de agricultor (mesmo CPF)
+- ✅ Atualização de dados do agricultor (exceto CPF)
+- ✅ Exclusão de agricultor (somente se active=false)
+- ❌ Cadastro com CPF inválido
+
+# Para Executar os Testes
+
+```bash
+npm run test:e2e
+```
+
+
+
