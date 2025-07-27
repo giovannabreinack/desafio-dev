@@ -52,4 +52,18 @@ describe('Testes do Módulo Agricultor (e2e)', () => {
     agricultorId = resposta.body.id;
   });
 
+  it("02 - Não Deve Cadastrar um Agricultor com o mesmo CPF", async () => {
+    await request(app.getHttpServer())
+      .post('/agricultores')
+      .send({
+        fullName: 'Root',
+        cpf: '62796039030', // deve ser adicionado um cpf valido
+        birthDate: '2025-07-27',
+        phone: "111111111",
+        active: true,
+      })
+      .expect(409)
+
+  });
+
 });
