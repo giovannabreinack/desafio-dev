@@ -77,4 +77,15 @@ describe('Testes do Módulo Agricultor (e2e)', () => {
   expect(resposta.body.phone).toBe('999999999');
 });
 
+it("04 - Deve excluir um Agricultor quando 'active' for false", async () => {
+  await request(app.getHttpServer())
+    .patch(`/agricultores/${agricultorId}`)
+    .send({
+      active: false,
+    })
+    .expect(200);
+  await request(app.getHttpServer())
+    .delete(`/agricultores/${agricultorId}`)
+    .expect(204); 
+});
 });
