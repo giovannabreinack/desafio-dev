@@ -10,7 +10,7 @@ import { AppModule } from '../src/app.module';
 
 describe('Testes do Módulo Agricultor (e2e)', () => {
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   let agricultorId: any;
   let app: INestApplication;
 
@@ -66,26 +66,42 @@ describe('Testes do Módulo Agricultor (e2e)', () => {
   });
 
   it("03 - Deve atualizar um Agricultor existente", async () => {
-  const resposta = await request(app.getHttpServer())
-    .patch(`/agricultores/${agricultorId}`)
-    .send({
-      fullName: 'Root Atualizado',
-      phone: '999999999',
-    })
-    .expect(200);
-  expect(resposta.body.fullName).toBe('Root Atualizado');
-  expect(resposta.body.phone).toBe('999999999');
-});
+    const resposta = await request(app.getHttpServer())
+      .patch(`/agricultores/${agricultorId}`)
+      .send({
+        fullName: 'Root Atualizado',
+        phone: '999999999',
+      })
+      .expect(200);
+    expect(resposta.body.fullName).toBe('Root Atualizado');
+    expect(resposta.body.phone).toBe('999999999');
+  });
 
-it("04 - Deve excluir um Agricultor quando 'active' for false", async () => {
-  await request(app.getHttpServer())
-    .patch(`/agricultores/${agricultorId}`)
-    .send({
-      active: false,
-    })
-    .expect(200);
-  await request(app.getHttpServer())
-    .delete(`/agricultores/${agricultorId}`)
-    .expect(204); 
-});
+  it("04 - Deve excluir um Agricultor quando 'active' for false", async () => {
+    await request(app.getHttpServer())
+      .patch(`/agricultores/${agricultorId}`)
+      .send({
+        active: false,
+      })
+      .expect(200);
+    await request(app.getHttpServer())
+      .delete(`/agricultores/${agricultorId}`)
+      .expect(204);
+  });
+
+  it("05 - Não deve cadastrar um Agricultor com CPF inválido", async () => {
+    const resposta = await request(app.getHttpServer())
+      .post('/agricultores')
+      .send({
+        fullName: 'Root Root',
+        cpf: '12345678900', // CPF inválido
+        birthDate: '2000-01-01',
+        phone: "999999999",
+        active: true,
+      })
+      .expect(400);
+    agricultorId = resposta.body.id;
+  });
+
+
 });
