@@ -63,7 +63,18 @@ describe('Testes do Módulo Agricultor (e2e)', () => {
         active: true,
       })
       .expect(409)
-
   });
+
+  it("03 - Deve atualizar um Agricultor existente", async () => {
+  const resposta = await request(app.getHttpServer())
+    .patch(`/agricultores/${agricultorId}`)
+    .send({
+      fullName: 'Root Atualizado',
+      phone: '999999999',
+    })
+    .expect(200);
+  expect(resposta.body.fullName).toBe('Root Atualizado');
+  expect(resposta.body.phone).toBe('999999999');
+});
 
 });
